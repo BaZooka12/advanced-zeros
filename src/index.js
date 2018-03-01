@@ -1,28 +1,42 @@
 module.exports = function getZerosCount(number, base) {
-  let newNumber = [];
-  let x = number;
-
-  while (true) {
-    if (x % base < 1) {
-      break;
-    }
-    newNumber.push(x % base);
-    x = Math.floor(x / base);
-  }
-  let zeros = +newNumber.reverse().join('');
-
-  function calculateTailZeros(number) {
-    let countZeroes = 0;
-    let counter = 1;
-    while (true) {
-      let zeroes = Math.floor(number / Math.pow(5, counter));
-      if (zeroes < 1) {
-        break;
+  function getMultiply(x) {
+    let firstFactor = 2;
+    let arrOfFactors = [];
+    let base2 = x;
+    let num = 1;
+    while (base2 !== num) {
+      if (x % firstFactor === 0) {
+        arrOfFactors.push(firstFactor);
+        x = x / firstFactor;
+        num *= firstFactor;
+      } else {
+        firstFactor++;
       }
-      countZeroes += zeroes;
-      counter++;
     }
-    return countZeroes;
+    return arrOfFactors;
   }
-  return calculateTailZeros(zeros);
+
+  function countZeroes(factorial, num) {
+    let arrOfZeros = [];
+    for (let i = 0; i < num.length; i++) {
+      let counter = 1;
+      let sum = 0;
+      let j = num[i];
+      while (factorial / Math.pow(num[i], counter) > 1) {
+        let facotrs = Math.floor(factorial / Math.pow(num[i], counter));
+        sum += facotrs;
+        counter++;
+      }
+      arrOfZeros.push(sum);
+    }
+    let zeros = arrOfZeros.pop();
+    return zeros;
+  }
+
+  let j = base;
+  let y = number;
+  let factors = getMultiply(j);
+  let zeros = countZeroes(y, factors);
+
+  return zeros;
 }
