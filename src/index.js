@@ -29,8 +29,20 @@ module.exports = function getZerosCount(number, base) {
       }
       arrOfZeros.push(sum);
     }
-    let zeros = arrOfZeros.pop();
+    let zeros = arrOfZeros[arrOfZeros.length - 1];
+    let j = arrOfZeros[arrOfZeros.length - 1];
+    let counter = 0;
+    arrOfZeros.map(function (el) {
+      if (el === j) {
+        counter++;
+      }
+    });
+    if (counter > 1) {
+      zeros = Math.floor(j / counter);
+    } 
+
     return zeros;
+    
   }
 
   let j = base;
